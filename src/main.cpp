@@ -1,15 +1,8 @@
 #include <iostream>
-#include <stdio.h>
-#include <algorithm>
 #include <tclap/CmdLine.h>
-#include <string>
-#include <limits.h>
-#include <chrono>
 #include <sstream>
-#include <utility>
 #include <fstream>
 #include <unistd.h>
-#include <sys/types.h>
 #include <pwd.h>
 #include <sys/stat.h>
 struct stat sb;
@@ -72,7 +65,7 @@ std::string get_current_directory() {
 
 bool contains(std::string base, std::string token) {
     return base.find(token) != std::string::npos;
-}   
+}
 
 void replace_all(std::string *str, std::string look, std::string with) { while( str->find(look) != std::string::npos )
                                                                             str->replace(str->find(look), with.length(), with); }
@@ -133,7 +126,6 @@ int main(int argc, char ** argv) {
         if( contains(dest, ".") ) { std::string cur_dir = get_current_directory();
             replace_all(&dest, ".", cur_dir); }
 
-        
         if( remove.getValue() ) {
             remove_destination(name.getValue());
             return EXIT_SUCCESS;
@@ -142,15 +134,14 @@ int main(int argc, char ** argv) {
         if( !set.getValue() ) {
             std::pair<std::string, bool> query = lookup_dest(name.getValue());
             if(!query.second) { std::cerr << "[" << query.first << "] could not find beam pad \"" << dest << "\"" << std::endl; return EXIT_FAILURE; }
-            chdir(query.first.c_str());
+            std::cout << query.first.c_str() << std::endl;
+            return 2;
         } else 
             add_dest(name.getValue(), dest);
-
-
     } catch(TCLAP::ArgException &e) { 
         std::cerr << "argument error: \"" << e.error() << "\" for \"" << e.argId() << "\"" << std::endl;
         return EXIT_FAILURE;
     }
 
-    return EXIT_SUCCESS;	
+    return EXIT_FAILURE;
 }

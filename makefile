@@ -4,14 +4,14 @@ HDRS=$(wildcard src/*.hpp)
 OBJS=$(patsubst %.c,%.o,$(SRC))
 
 comp:
-	clang++ -std=c++1y -stdlib=libc++ -O2 -o bm $(SRCS)
+	clang++ -std=c++1y -stdlib=libc++ -I/usr/local/Cellar/tclap/1.2.1/include -L/usr/local/Cellar/tclap/1.2.1/lib -O2 -o beam $(SRCS)
 
 run:
-	./bm
+	./beam
 
 install:
-	cp bm /usr/bin/bm
+	cp beam /usr/bin/beam
 
 clean:
-	rm bm
+	rm beam
 
