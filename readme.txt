@@ -1,5 +1,9 @@
 beam - beam across your filesystem
+-----------
 
+to install, just run ```install.sh```
 
-BROKEN -- this will function properly but CANNOT change your shells current directory, need to find a workaround.
+## Help ##
 
+if you are running any other shell, just replace the startup file with your own.
+  (.zshrc -> .bashrc)
